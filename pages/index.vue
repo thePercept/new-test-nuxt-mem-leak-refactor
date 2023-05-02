@@ -1,5 +1,5 @@
 <template>
-  <CBox class="mainHolder" v-bind="mainStylesTwo[colorMode]">
+  <CBox class="mainHolder" v-bind="mainStylesComplete['backGround'][colorMode]">
     <client-only placeholder="loading...">
       <newsTickr
         :latestUpdates="mainData['latest_updates']"
@@ -18,9 +18,9 @@
       as="section"
       class="primary-section"
       id="main-content-section"
-      v-bind="mainStylesTwo[colorMode]"
+      v-bind="mainStylesComplete['backGround'][colorMode]"
     >
-      <c-box class="" v-bind="mainStylesTwo[colorMode]">
+      <c-box class="" v-bind="mainStylesComplete['backGround'][colorMode]">
         <c-box>
           <c-heading as="h2" class="ancorp-primary-heading" id="tender-heading">
             {{ $t('heading_tenders') }}
@@ -31,11 +31,11 @@
               aria-label="List of Published Tenders"
               class="ancorp-ul ul-l tender-ul"
               v-if="mainData['tenders'].length > 0"
-              v-bind="mainStyles[colorMode]"
+              v-bind="mainStylesComplete['foreGround'][colorMode]"
             >
               <c-box
                 as="li"
-                v-bind="mainStyles[colorMode]"
+                v-bind="mainStylesComplete['foreGround'][colorMode]"
                 class="ancorp-li"
                 v-for="(item, index) in mainData['tenders']"
                 :key="`${index}-${item['content_id']}`"
@@ -53,7 +53,11 @@
                     as="nuxt-link"
                     :to="localePath('/tenders/current-tenders/' + item.slug)"
                     class="item-content download-link"
-                    :color="mainStyles[colorMode]['downloadLinkColor']"
+                    :color="
+                      mainStylesComplete['foreGround'][colorMode][
+                        'downloadLinkColor'
+                      ]
+                    "
                   >
                     {{
                       $i18n.locale == 'en'
@@ -102,7 +106,11 @@
                       as="small"
                       class="tender-critical-msg"
                       v-if="!bidClosed(item['bid_closing_datetime'])"
-                      :color="mainStyles[colorMode]['smallTextColor']"
+                      :color="
+                        mainStylesComplete['foreGround'][colorMode][
+                          'smallTextColor'
+                        ]
+                      "
                     >
                       {{ $t('bid_closing_soon') }}
                       {{
@@ -116,7 +124,11 @@
                       as="small"
                       class="tender-critical-msg"
                       v-if="bidClosed(item['bid_closing_datetime'])"
-                      :color="mainStyles[colorMode]['smallTextColor']"
+                      :color="
+                        mainStylesComplete['foreGround'][colorMode][
+                          'smallTextColor'
+                        ]
+                      "
                     >
                       {{ $t('bidding_closed') }}
                     </c-box>
@@ -125,7 +137,7 @@
               </c-box>
             </c-box>
             <c-box
-              v-bind="mainStyles[colorMode]"
+              v-bind="mainStylesComplete['foreGround'][colorMode]"
               v-if="mainData['tenders'].length > 0"
               class="ancorp-li viewable-link-cont"
               d="flex"
@@ -136,7 +148,11 @@
                 class="view-all-link"
                 :to="localePath('/tenders/current-tenders/')"
                 font-weight="bold"
-                :color="mainStyles[colorMode]['viewAllLinkColor']"
+                :color="
+                  mainStylesComplete['foreGround'][colorMode][
+                    'viewAllLinkColor'
+                  ]
+                "
               >
                 {{ $t('view_all_tenders') }}
               </c-box>
@@ -144,13 +160,19 @@
           </c-box>
 
           <c-box
-            v-bind="mainStyles[colorMode]"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
             class="empty-ul-container"
             v-if="!mainData['tenders'].length > 0"
           >
             <c-box as="ul" class="ancorp-ul ul-l tender-ul empty-ul-tender">
               <c-box as="li" class="ancorp-li empty-tender-state">
-                <p :color="mainStyles[colorMode]['viewAllLinkColor']">
+                <p
+                  :color="
+                    mainStylesComplete['foreGround'][colorMode][
+                      'viewAllLinkColor'
+                    ]
+                  "
+                >
                   {{ $t('no_new_tenders') }}
                 </p>
               </c-box>
@@ -165,18 +187,26 @@
                   class="view-all-link"
                   :to="localePath('/tenders/archived-tenders/')"
                   font-weight="bold"
-                  v-bind="mainStyles[colorMode]"
-                  :color="mainStyles[colorMode]['viewAllLinkColor']"
+                  v-bind="mainStylesComplete['foreGround'][colorMode]"
+                  :color="
+                    mainStylesComplete['foreGround'][colorMode][
+                      'viewAllLinkColor'
+                    ]
+                  "
                 >
                   {{ $t('view_all_archived_tenders') }}
                 </c-box>
               </c-box>
             </c-box>
-            <c-box class="" v-bind="mainStyles[colorMode]"> </c-box>
+            <c-box
+              class=""
+              v-bind="mainStylesComplete['foreGround'][colorMode]"
+            >
+            </c-box>
           </c-box>
         </c-box>
       </c-box>
-      <c-box class="" v-bind="mainStylesTwo[colorMode]">
+      <c-box class="" v-bind="mainStylesComplete['backGround'][colorMode]">
         <c-box>
           <c-heading
             as="h2"
@@ -185,7 +215,11 @@
           >
             {{ $t('heading_authorities') }}
           </c-heading>
-          <c-box as="ul" v-bind="mainStyles[colorMode]" class="ancorp-ul ul-r">
+          <c-box
+            as="ul"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
+            class="ancorp-ul ul-r"
+          >
             <c-box as="li" class="ancorp-authorities-li">
               <c-box class="authorities-item-cont">
                 <c-box
@@ -267,9 +301,9 @@
       as="section"
       class="primary-section"
       id="main-content-section-two"
-      v-bind="mainStylesTwo[colorMode]"
+      v-bind="mainStylesComplete['backGround'][colorMode]"
     >
-      <c-box class="" v-bind="mainStylesTwo[colorMode]">
+      <c-box class="" v-bind="mainStylesComplete['backGround'][colorMode]">
         <c-box class="">
           <c-heading
             as="h2"
@@ -282,7 +316,7 @@
           <c-box
             as="ul"
             class="ancorp-ul ul-r news-event-ul"
-            v-bind="mainStyles[colorMode]"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
           >
             <c-box
               as="li"
@@ -299,7 +333,11 @@
                   as="nuxt-link"
                   :to="localePath('/news-and-events/' + item.slug)"
                   class="item-content download-link"
-                  :color="mainStyles[colorMode]['downloadLinkColor']"
+                  :color="
+                    mainStylesComplete['foreGround'][colorMode][
+                      'downloadLinkColor'
+                    ]
+                  "
                 >
                   {{
                     $i18n.locale == 'en'
@@ -322,7 +360,7 @@
             </c-box>
           </c-box>
           <c-box
-            v-bind="mainStyles[colorMode]"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
             class="ancorp-li viewable-link-cont"
             d="flex"
             justify-content="flex-start"
@@ -332,7 +370,9 @@
               class="view-all-link"
               :to="localePath('/news-and-events/')"
               font-weight="bold"
-              :color="mainStyles[colorMode]['viewAllLinkColor']"
+              :color="
+                mainStylesComplete['foreGround'][colorMode]['viewAllLinkColor']
+              "
             >
               {{ $t('view_all_news_events') }}
             </c-box>
@@ -347,7 +387,11 @@
           >
             {{ $t('letter_circulars') }}
           </c-heading>
-          <c-box as="ul" class="ancorp-ul" v-bind="mainStyles[colorMode]">
+          <c-box
+            as="ul"
+            class="ancorp-ul"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
+          >
             <c-box
               as="li"
               class="ancorp-li"
@@ -363,7 +407,11 @@
                   as="nuxt-link"
                   :to="localePath('/letters-and-circulars/' + item.slug)"
                   class="item-content download-link"
-                  :color="mainStyles[colorMode]['downloadLinkColor']"
+                  :color="
+                    mainStylesComplete['foreGround'][colorMode][
+                      'downloadLinkColor'
+                    ]
+                  "
                 >
                   {{
                     $i18n.locale == 'en'
@@ -386,7 +434,7 @@
             </c-box>
           </c-box>
           <c-box
-            v-bind="mainStyles[colorMode]"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
             class="ancorp-li viewable-link-cont"
             d="flex"
             justify-content="flex-start"
@@ -396,7 +444,9 @@
               class="view-all-link"
               :to="localePath('/letters-and-circulars/')"
               font-weight="bold"
-              :color="mainStyles[colorMode]['viewAllLinkColor']"
+              :color="
+                mainStylesComplete['foreGround'][colorMode]['viewAllLinkColor']
+              "
             >
               {{ $t('view_all_lnc') }}
             </c-box>
@@ -405,7 +455,11 @@
       </c-box>
     </c-box>
 
-    <c-box as="section" class="flx-col" v-bind="mainStylesTwo[colorMode]">
+    <c-box
+      as="section"
+      class="flx-col"
+      v-bind="mainStylesComplete['backGround'][colorMode]"
+    >
       <c-box class="" width="100%">
         <c-heading
           as="h2"
@@ -415,7 +469,10 @@
           {{ $t('heading_about_ancorp') }}
         </c-heading>
 
-        <c-box class="ancorp-details" v-bind="mainStyles[colorMode]">
+        <c-box
+          class="ancorp-details"
+          v-bind="mainStylesComplete['foreGround'][colorMode]"
+        >
           <c-text as="p" class="ancorp-page-paragraph pb-3">
             {{ $t('about_ancorp_one') }}
           </c-text>
@@ -452,7 +509,10 @@
               {{ $t('heading_excellence') }}
             </c-text>
           </c-box>
-          <c-box class="usp-cont" v-bind="mainStyles[colorMode]">
+          <c-box
+            class="usp-cont"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
+          >
             <c-text as="h3">
               {{ $t('about_ancorp_three') }}
             </c-text>
@@ -472,7 +532,10 @@
               {{ $t('heading_initiative') }}
             </c-text>
           </c-box>
-          <c-box class="usp-cont" v-bind="mainStyles[colorMode]">
+          <c-box
+            class="usp-cont"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
+          >
             <c-text as="h3">
               {{ $t('about_ancorp_four') }}
             </c-text>
@@ -492,7 +555,10 @@
               {{ $t('heading_robust') }}
             </c-text>
           </c-box>
-          <c-box class="usp-cont" v-bind="mainStyles[colorMode]">
+          <c-box
+            class="usp-cont"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
+          >
             <c-text as="h3">
               {{ $t('about_ancorp_five') }}
             </c-text>
@@ -504,7 +570,7 @@
     <c-box
       as="section"
       class="primary-section flx-col"
-      v-bind="mainStylesTwo[colorMode]"
+      v-bind="mainStylesComplete['backGround'][colorMode]"
     >
       <c-box class="" width="100%">
         <c-heading
@@ -515,7 +581,10 @@
           {{ $t('heading_projects_services') }}
         </c-heading>
 
-        <c-box class="projects-cont" v-bind="mainStyles[colorMode]">
+        <c-box
+          class="projects-cont"
+          v-bind="mainStylesComplete['foreGround'][colorMode]"
+        >
           <c-box as="h3" class="projects-cont-sub-heading">
             {{ $t('heading_projects') }}
           </c-box>
@@ -523,7 +592,7 @@
           <c-text
             as="p"
             class="projects-cont-sub-heading"
-            v-bind="mainStyles[colorMode]"
+            v-bind="mainStylesComplete['foreGround'][colorMode]"
           >
             {{ $t('projects_msg') }}
           </c-text>
@@ -562,7 +631,11 @@
                 <c-box class="proj-thumb-title">
                   <c-box
                     as="nuxt-link"
-                    :color="mainStyles[colorMode]['downloadLinkColor']"
+                    :color="
+                      mainStylesComplete['foreGround'][colorMode][
+                        'downloadLinkColor'
+                      ]
+                    "
                     :to="localePath('/projects/' + project.slug)"
                     >{{
                       $i18n.locale == 'en'
@@ -580,7 +653,11 @@
                 class="view-all-link"
                 :to="localePath('/projects/')"
                 font-weight="bold"
-                :color="mainStyles[colorMode]['viewAllLinkColor']"
+                :color="
+                  mainStylesComplete['foreGround'][colorMode][
+                    'viewAllLinkColor'
+                  ]
+                "
               >
                 {{ $t('view_all_projects') }}
               </c-box>
@@ -644,7 +721,11 @@
                 class="view-all-link"
                 :to="localePath('/services/')"
                 font-weight="bold"
-                :color="mainStyles[colorMode]['viewAllLinkColor']"
+                :color="
+                  mainStylesComplete['foreGround'][colorMode][
+                    'viewAllLinkColor'
+                  ]
+                "
               >
                 {{ $t('view_all_services') }}
               </c-box>
@@ -663,7 +744,7 @@
           list-style="none"
           d="flex"
           justify-content="center"
-          v-bind="mainStyles[colorMode]"
+          v-bind="mainStylesComplete['foreGround'][colorMode]"
           id="external-links-container"
         >
           <CBox
@@ -801,7 +882,7 @@
     <c-box
       as="section"
       class="primary-section flx-col contact-details-section"
-      v-bind="mainStylesTwo[colorMode]"
+      v-bind="mainStylesComplete['backGround'][colorMode]"
     >
       <c-box class="contact-details-container" width="100%">
         <c-box class="contact-details">
@@ -884,11 +965,12 @@ import { mapActions } from 'vuex';
 import moment from 'moment';
 import 'moment/locale/hi';
 
-import colorValues from '~/mixins/colorValues.js'
+import colorValues from '~/mixins/colorValues.js';
 
 export default {
   name: 'IndexPage',
   inject: ['$chakraColorMode', '$toggleColorMode'],
+  mixins: [colorValues],
 
   jsonld() {
     const homeJsonData = {
@@ -930,7 +1012,6 @@ export default {
     newsTickr,
     imageCarousel,
   },
-
 
   head() {
     return {
@@ -987,33 +1068,6 @@ export default {
 
   data() {
     return {
-      mainStyles: {
-        dark: {
-          bg: 'gray.700',
-          color: 'white',
-          viewAllLinkColor: 'white',
-          downloadLinkColor: 'white',
-          smallTextColor: '#52FF94',
-        },
-        light: {
-          bg: 'white',
-          color: 'gray.900',
-          viewAllLinkColor: '#C5283D',
-          downloadLinkColor: '#100072',
-          smallTextColor: '#C5283D',
-        },
-      },
-      mainStylesTwo: {
-        dark: {
-          bg: 'gray.600',
-          color: 'white',
-        },
-        light: {
-          bg: '#f4f4f4',
-          color: 'gray.900',
-        },
-      },
-
       fluxImages: [],
       responseData: null,
       isSwitch: false,

@@ -102,7 +102,7 @@ export default {
   },
 
   router: {
-    middleware: 'scrollBehavior',
+    // middleware: 'scrollBehavior',
     // prefetchLinks: false
   },
 
